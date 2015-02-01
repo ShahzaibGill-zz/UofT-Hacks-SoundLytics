@@ -12,7 +12,6 @@ if(!($_POST['uname'] == 'justin.paulin@uwaterloo.ca' && $_POST['pass'] == 'passw
 }
 ?>
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -22,6 +21,9 @@ if(!($_POST['uname'] == 'justin.paulin@uwaterloo.ca' && $_POST['pass'] == 'passw
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta charset="utf-8" />
+    <!-- import plugin script -->
+    <script src='Chart.min.js'></script>
 
     <title>Soundlytics</title>
 
@@ -77,15 +79,15 @@ if(!($_POST['uname'] == 'justin.paulin@uwaterloo.ca' && $_POST['pass'] == 'passw
                         <a href="#contact">Contact</a>
                     </li>
                 </ul> -->
-                <form class="navbar-form navbar-right" action="backend.php" method="post">
+                <form class="navbar-form navbar-right" >
                     <div class="form-group">
                         <label for="inputUser" class="sr-only">Username</label>
-                        <input name="uname" type="text" class="form-control input-sm" id="inputUser" placeholder="Username">
+                        <input type="text" class="form-control input-sm" id="inputUser" placeholder="Username">
                     </div>
 
                     <div class="form-group">
                         <label for="inputPass" class="sr-only">Password</label>
-                        <input name="pass" type="password" class="form-control input-sm" id="inputPass" placeholder="Password">
+                        <input type="password" class="form-control input-sm" id="inputPass" placeholder="Password">
                     </div>
 
                 <button type="submit" class="btn btn-success">Log In</button>
@@ -113,192 +115,58 @@ if(!($_POST['uname'] == 'justin.paulin@uwaterloo.ca' && $_POST['pass'] == 'passw
             </div>
         </div>
     </header>
+    </body>
+    <br><br>
 
-    <!-- Portfolio Grid Section -->
-    <section id="portfolio">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2>Simple Flexible Versatile</h2>
-                    <hr class="star-primary">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-4 portfolio-item">
-                    <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
-                        <img src="img/graph.png" class="img-responsive" alt="">
-                    </a>
-                </div>
+    <body align = "center">
+        <!-- line chart canvas element -->
+        <canvas id="buyers" width="800" height="400" ></canvas>
+        <br><br><br><br>
+        <!-- bar chart canvas element -->
+        <canvas id="income" width="800" height="400"></canvas>
+        <script>
+            // line chart data
+            var buyerData = {
+                labels : ["January","February","March","April","May","June"],
+                datasets : [
+                {
+                    fillColor : "rgba(172,194,132,0.4)",
+                    strokeColor : "#ACC26D",
+                    pointColor : "#fff",
+                    pointStrokeColor : "#9DB86D",
+                    data : [203,156,99,251,305,247]
+                }
+            ]
+            }
 
-                <div class="col-sm-6 portfolio-item">
-                    <p class="description"> <h4>Powerful Analytics</h4>
-                    The analytical data can be used in order to determine the time and location at which most people are present at a certain area. This has various applications such as finding least crowded areas in a library, and finding most frequented areas in a retail establishment.
-                    </p>
-                </div>
+            // get line chart canvas
+            var buyers = document.getElementById('buyers').getContext('2d');
+            // draw line chart
+            new Chart(buyers).Line(buyerData);
 
-            </div>
+            // bar chart data
+            var barData = {
+                labels : ["January","February","March","April","May","June"],
+                datasets : [
+                    {
+                        fillColor : "#48A497",
+                        strokeColor : "#48A4D1",
+                        data : [456,479,324,569,702,600]
+                    },
+                    {
+                        fillColor : "rgba(73,188,170,0.4)",
+                        strokeColor : "rgba(72,174,209,0.4)",
+                        data : [364,504,605,400,345,320]
+                    }
+                ]
+            }
+            // get bar chart canvas
+            var income = document.getElementById("income").getContext("2d");
+            // draw bar chart
+            new Chart(income).Bar(barData);
+        </script>
+        <br><br><br>
 
-            <div class="row">
-                <div class="col-sm-4 portfolio-item">
-                    <a href="#portfolioModal2" class="portfolio-link" data-toggle="modal">
-                        <img src="img/heatmap.png" class="img-responsive" alt="">
-                    </a>
-                </div>
-
-                <div class="col-sm-6 portfolio-item">
-                    <p class="description"> <h4>Map</h4>
-                   Through innovative heat mapping technology, our users are able to pinpoint locations of high and low consumer traffic in any supported SoundLytics environment. Accordingly, vendors are able to strategically expand and establish their product, while students are able to locate their solitary study space.</p>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-4 portfolio-item">
-                    <a href="#portfolioModal4" class="portfolio-link" data-toggle="modal">
-                        <img style="padding-left:90px;"src="img/ipad.jpg" class="img-responsive" alt="">
-                    </a>
-                </div>
-
-                <div class="col-sm-6 portfolio-item">
-                    <p class="description"> <h4>Mobile Compatibility</h4>
-                    SoundLytics’ mobile application permits customers to view important information even on the go. Users are always prepared to make informative decisions beforehand.
-                    </p>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section class="success" id="about">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2>About</h2>
-                    <hr class="star-light">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-4 col-lg-offset-2">
-                    <p>SoundLytics is an environmental analytic system created during UofTHacks. Population presence or density of an area is recorded through the use of sensors and the data is used for various purposes, including social benefit.</p>
-                </div>
-                <div class="col-lg-4">
-                    <p> Analytics collected are presented in graphs and Students can use the data  to find the most optimal study location, or a homeless person in need of shelter can be detected and lead to a nearby homeless shelter. </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    <!-- Contact Section -->
-<!--    <section id="contact">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2>Contact Me</h2>
-                    <hr class="star-primary">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2"> -->
-                    <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
-                    <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
-    <!--                <form name="sentMessage" id="contactForm" novalidate>
-                        <div class="row control-group">
-                            <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Name</label>
-                                <input type="text" class="form-control" placeholder="Name" id="name" required data-validation-required-message="Please enter your name.">
-                                <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-                        <div class="row control-group">
-                            <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Email Address</label>
-                                <input type="email" class="form-control" placeholder="Email Address" id="email" required data-validation-required-message="Please enter your email address.">
-                                <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-                        <div class="row control-group">
-                            <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Phone Number</label>
-                                <input type="tel" class="form-control" placeholder="Phone Number" id="phone" required data-validation-required-message="Please enter your phone number.">
-                                <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-                        <div class="row control-group">
-                            <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Message</label>
-                                <textarea rows="5" class="form-control" placeholder="Message" id="message" required data-validation-required-message="Please enter a message."></textarea>
-                                <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-                        <br>
-                        <div id="success"></div>
-                        <div class="row">
-                            <div class="form-group col-xs-12">
-                                <button type="submit" class="btn btn-success btn-lg">Send</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section> -->
-
-    <!-- Footer -->
-    <footer class="text-center">
-        <div class="footer-above">
-            <div class="container">
-                <div class="row">
-                    <div class="footer-col col-md-4">
-                        <h3>Location</h3>
-                        <p>Bahen Centre for Information Technology - BA.
-                            40 St. George Street
-                            Toronto, ON Canada M5S 2E4</p>
-                    </div>
-                    <div class="footer-col col-md-4">
-                        <h3>Around the Web</h3>
-                        <ul class="list-inline">
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-facebook"></i></a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-google-plus"></i></a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-twitter"></i></a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-linkedin"></i></a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-dribbble"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="footer-col col-md-4">
-                        <h3>About SoundLytics</h3>
-                        <p>SoundLytics is an environmental analytic system created during UofTHacks 2015. </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer-below">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        Copyright &copy; SoundLytics 2014
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
-    <div class="scroll-top page-scroll visible-xs visble-sm">
-        <a class="btn btn-primary" href="#page-top">
-            <i class="fa fa-chevron-up"></i>
-        </a>
-    </div>
 
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
